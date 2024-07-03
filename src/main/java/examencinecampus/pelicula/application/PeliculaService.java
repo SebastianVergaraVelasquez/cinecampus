@@ -1,31 +1,31 @@
 package examencinecampus.pelicula.application;
 
 
-import examencinecampus.pelicula.adapters.out.PeliculaMYSQLRepository;
+import examencinecampus.pelicula.infrastructure.PeliculaRepository;
 import examencinecampus.pelicula.domain.models.Pelicula;
 
 public class PeliculaService {
 
-    private final PeliculaMYSQLRepository peliculaMYSQLRepository;
+    private final PeliculaRepository peliculaRepository;
 
-    public PeliculaService(PeliculaMYSQLRepository peliculaMYSQLRepository) {
-        this.peliculaMYSQLRepository = peliculaMYSQLRepository;
+    public PeliculaService(PeliculaRepository peliculaRepository) {
+        this.peliculaRepository = peliculaRepository;
     }
 
     public void createPelicula(Pelicula pelicula){
-        peliculaMYSQLRepository.save(pelicula);
+        peliculaRepository.save(pelicula);
     }
 
     public void updatePelicula(Pelicula pelicula){
-        peliculaMYSQLRepository.update(pelicula);
+        peliculaRepository.update(pelicula);
     }
 
     public void deletePelicula(int id){
-        peliculaMYSQLRepository.delete(id);
+        peliculaRepository.delete(id);
     }
 
     public void findAllPelicula(){
-        peliculaMYSQLRepository.findAll();
+        peliculaRepository.findAll();
     }    
 
 
