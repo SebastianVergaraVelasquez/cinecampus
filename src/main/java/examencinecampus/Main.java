@@ -6,6 +6,9 @@ import examencinecampus.actor.application.ActorService;
 import examencinecampus.formato.adapters.in.FormatoConsoleAdapter;
 import examencinecampus.formato.adapters.out.FormatoMYSQLRepository;
 import examencinecampus.formato.application.FormatoService;
+import examencinecampus.genero.adapters.in.GeneroConsoleAdapter;
+import examencinecampus.genero.adapters.out.GeneroMYSQLRepository;
+import examencinecampus.genero.application.GeneroService;
 import examencinecampus.validations.InputValidation;
 
 
@@ -27,7 +30,9 @@ public class Main {
         FormatoService formatoService = new FormatoService(formatoMYSQLRepository);
         FormatoConsoleAdapter formatoConsoleAdapter = new FormatoConsoleAdapter(formatoService);
 
-        
+        GeneroMYSQLRepository generoMYSQLRepository = new GeneroMYSQLRepository(password, url, user);
+        GeneroService generoService = new GeneroService(generoMYSQLRepository);
+        GeneroConsoleAdapter generoConsoleAdapter = new GeneroConsoleAdapter(generoService);
 
 
         System.out.println("*** Menu principal ***\n");

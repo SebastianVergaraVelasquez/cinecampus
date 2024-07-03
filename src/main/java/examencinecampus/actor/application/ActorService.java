@@ -1,28 +1,35 @@
 package examencinecampus.actor.application;
 
-import examencinecampus.actor.adapters.out.ActorMYSQLRepository;
+import java.util.List;
+import java.util.Optional;
+
 import examencinecampus.actor.domain.models.Actor;
+import examencinecampus.actor.infrastructure.ActorRepository;
 
 public class ActorService {
-    private final ActorMYSQLRepository actorMYSQLRepository;
+    private final ActorRepository actorRepository;
 
-    public ActorService(ActorMYSQLRepository actorMYSQLRepository) {
-        this.actorMYSQLRepository = actorMYSQLRepository;
+    public ActorService(ActorRepository actorRepository) {
+        this.actorRepository = actorRepository;
     }
 
     public void createActor(Actor actor){
-        actorMYSQLRepository.save(actor);
+        actorRepository.save(actor);
     }
 
     public void updateActor(Actor actor){
-        actorMYSQLRepository.update(actor);
+        actorRepository.update(actor);
     }
 
     public void deleteActor(int id){
-        actorMYSQLRepository.delete(id);
+        actorRepository.delete(id);
     }
 
-    public void findAllActor(){
-        actorMYSQLRepository.findAll();
+    public List<Actor> findAllActor(){
+       return actorRepository.findAll();
+    }
+
+    public Optional<Actor> findById(int id){
+        return actorRepository.findById(id);
     }
 }

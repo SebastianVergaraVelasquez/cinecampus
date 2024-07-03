@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import examencinecampus.pelicula.domain.models.Pelicula;
 import examencinecampus.pelicula.infrastructure.PeliculaRepository;
@@ -89,7 +90,30 @@ public class PeliculaMYSQLRepository implements PeliculaRepository {
         e.printStackTrace();
     }
     return peliculas;
-    }    
+    }
 
-    
+    @Override
+    public Optional<Pelicula> findById(int id) {
+        try(Connection connection = DriverManager.getConnection(url, user, password)) {
+            String query = "SELECT * FROM actor WHERE id = ?;";
+            try(PreparedStatement statement = connection.prepareStatement(query)){
+                statement.setInt(1, id);
+                try(ResultSet resultSet = statement.executeQuery()){
+                    if(resultSet.next()){
+                        Pelicula pelicula = new Pelicula(
+                            resultSet.getInt("id"), 
+                            resultSet.getString("codinterno"), 
+                            resultSet.getString("nombre"), 
+                            resultSet.getString("duracion"), 
+                            resultSet.getString("sinopsis"));
+                        return Optional.of(pelicula);
+                    }
+                }
+            }
+        
+          }  catch (SQLException e) {
+                e.printStackTrace();
+            }
+    return Optional.empty();
+    }    
 }

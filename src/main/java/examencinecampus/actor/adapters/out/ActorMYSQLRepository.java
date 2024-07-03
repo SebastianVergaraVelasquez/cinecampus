@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import examencinecampus.actor.domain.models.Actor;
 import examencinecampus.actor.infrastructure.ActorRepository;
@@ -91,4 +92,29 @@ public class ActorMYSQLRepository implements ActorRepository{
     return actors;
     }
 
+    @Override
+    public Optional<Actor> findById(int id){
+        try(Connection connection = DriverManager.getConnection(url, user, password)) {
+            String query = "SELECT * FROM actor WHERE id = ?;";
+            try(PreparedStatement statement = connection.prepareStatement(query)){
+                statement.setInt(1, id);
+                try(ResultSet resultSet = statement.executeQuery()){
+                    if(resultSet.next()){
+                        Actor actor = new Actor(
+                            resultSet.getInt("id"), 
+                            resultSet.getString("nombre"), 
+                            resultSet.getInt("idnacionalidad"), 
+                            resultSet.getInt("edad"), 
+                            resultSet.getInt("idgenero"));
+                        return Optional.of(actor);
+                    }
+                }
+            }
+        
+          }  catch (SQLException e) {
+                e.printStackTrace();
+            }
+    return Optional.empty();
+
+    }
 }
