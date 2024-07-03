@@ -116,8 +116,8 @@ INSERT INTO genero (descripcion) VALUES
 ('Terror'),
 ('Thriller'),
 ('Gore'),
-('Acción');
-('Ciencia ficción')
+('Acción'),
+('Ciencia ficción');
 
 INSERT INTO formato (descripcion) VALUES
 ('DVD'),
