@@ -3,7 +3,9 @@ package examencinecampus.peliculaprotagonista.adapters.out;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import examencinecampus.peliculaprotagonista.domain.models.PeliculaProtagonista;
@@ -37,9 +39,28 @@ public class PeliProtaMYSQLRepository implements PeliculaProtaRepository{
 
     @Override
     public List<PeliculaProtagonista> findAllByPeliId(int id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findAllByPeliId'");
-    }
+        List<PeliculaProtagonista> peliprotas = new ArrayList<>();
+        try(Connection connection = DriverManager.getConnection(url, user, password)) {
+            String query = "SELECT * peliculaprotagonista WHERE id = ?;";
+            try(PreparedStatement statement = connection.prepareStatement(query)){
+                statement.setInt(1, id);
+                try(ResultSet resultSet = statement.executeQuery()){
+                while(resultSet.next()){
+                    PeliculaProtagonista peliprota = new PeliculaProtagonista(
+                            resultSet.getInt("id"), 
+                            resultSet.getInt("idnacionalidad"), 
+                            resultSet.getInt("edad"), 
+                            resultSet.getInt("idgenero"));
+                            peliprotas.add(peliprota);
+                    }
+                }
+            }
+        
+          }  catch (SQLException e) {
+                e.printStackTrace();
+            }
+    return peliprotas;
 
+    }
     
 }

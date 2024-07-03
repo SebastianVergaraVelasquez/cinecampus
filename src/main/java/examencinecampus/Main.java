@@ -17,8 +17,8 @@ public class Main {
         System.out.println("Hello world!");
 
         String url = "jdbc:mysql://localhost:3306/cinecampus";
-        String user = "campus2023";
-        String password = "campus2023";
+        String user = "root";
+        String password = "123456";
         InputValidation inputValidation = new InputValidation();
 
 
