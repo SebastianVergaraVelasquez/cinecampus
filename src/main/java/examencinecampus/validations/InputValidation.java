@@ -21,4 +21,19 @@ public class InputValidation {
             }
         }
     }
+
+    public String stringNotNull(String message){
+        
+        String value;
+        while (true) {
+            System.out.println(message);
+            value = scanner.nextLine();
+            if (value.isBlank()) {
+                System.out.println("Dato invalido, vuelva a intentar");
+            } else {
+                break; 
+            }
+        }
+        return value;
+    }
 }
