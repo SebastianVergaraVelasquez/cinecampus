@@ -9,6 +9,9 @@ import examencinecampus.formato.application.FormatoService;
 import examencinecampus.genero.adapters.in.GeneroConsoleAdapter;
 import examencinecampus.genero.adapters.out.GeneroMYSQLRepository;
 import examencinecampus.genero.application.GeneroService;
+import examencinecampus.pelicula.adapters.in.PeliculaConsoleAdapter;
+import examencinecampus.pelicula.adapters.out.PeliculaMYSQLRepository;
+import examencinecampus.pelicula.application.PeliculaService;
 import examencinecampus.validations.InputValidation;
 
 
@@ -25,6 +28,10 @@ public class Main {
         ActorMYSQLRepository actorMYSQLRepository = new ActorMYSQLRepository(url, user, password);
         ActorService actorService = new ActorService(actorMYSQLRepository);
         ActorConsoleAdapter actorConsoleAdapter = new ActorConsoleAdapter(actorService);
+
+        PeliculaMYSQLRepository peliculaMYSQLRepository = new PeliculaMYSQLRepository(url, user, password);
+        PeliculaService peliculaService = new PeliculaService(peliculaMYSQLRepository, actorMYSQLRepository);
+        PeliculaConsoleAdapter peliculaConsoleAdapter = new PeliculaConsoleAdapter(peliculaService);
         
         FormatoMYSQLRepository formatoMYSQLRepository = new FormatoMYSQLRepository(url, user, password);
         FormatoService formatoService = new FormatoService(formatoMYSQLRepository);
@@ -45,6 +52,7 @@ public class Main {
                 actorConsoleAdapter.menuActor();
                 break;
             case 2:
+                peliculaConsoleAdapter.menuPelicula();
                 break;
             case 3:
                 formatoConsoleAdapter.menuFormato();
